@@ -20,12 +20,19 @@ import PlaygroundSupport
 
 // Copy your encoded image string here...
 let encodedBitmap = """
-1,3,1
-4,1
-1,4
-0,1,3,1
-0,1,3,1
-1,4
+w7a8w5
+w5a1B8a1w4
+w5a1B10a1w3
+w4a1B5a3B4a1w2
+w3a1B5a1b1B6a1w1
+w3a1B4a1b2a1B6a1w1
+w3a1B3a1b3a1B6a1w1
+w3a1B2a1b5a1B5a1w1
+w4a2b7a1B3a1w2
+w5a1b8a1B1w3
+w7a8w5
+
+
 """
 
 // Make a canvas
@@ -53,11 +60,15 @@ var drawThisManyPixels = 0
 // Iterate over each character in the encoded bitmap string
 for character in encodedBitmap {
     
+    // DEBUG:
+    print("current character is:")
+    print(character)
+    
     // Set colour at start of a line
     if character == "0" {
         
-        canvas.fillColor = Color.black
-        currentColor = "black"
+        canvas.fillColor = Color.blue
+        currentColor = "blue"
 
     } else if character == "," {
         
@@ -66,15 +77,36 @@ for character in encodedBitmap {
         if x > 0 {
 
             // Toggle the pixel colour
-            if currentColor == "black" {
+            if character == "w" {
                 currentColor = "white"
                 canvas.fillColor = Color.white
-            } else {
+            } else if character == "a" {
                 currentColor = "black"
                 canvas.fillColor = Color.black
+            } else if  character == "b" {
+                currentColor = "light blue"
+                canvas.fillColor = Color.init(hue: 187, saturation: 50, brightness: 95, alpha: 100)
+            } else if character == "B" {
+                currentColor = "dark blue"
+                canvas.fillColor = Color.init(hue: 187, saturation: 100, brightness: 57, alpha: 100)
+            } else if character == "w" {
+                currentColor = "white"
+                canvas.fillColor = Color.white
+            } else if character == "a" {
+                currentColor = "black"
+                canvas.fillColor = Color.black
+            } else if character == "b" {
+                currentColor = "light blue"
+                canvas.fillColor = Color.init(hue: 187, saturation: 50, brightness: 95, alpha: 100)
+            } else if character == "B" {
+                currentColor = "dark blue"
+                canvas.fillColor = Color.init(hue: 187, saturation: 100, brightness: 57, alpha: 100)
+                
             }
 
         }
+        
+    
         
     } else if character == "\n" {
         
@@ -87,13 +119,10 @@ for character in encodedBitmap {
         canvas.fillColor = Color.white
         currentColor = "white"
         
-    } else {
+ 
         
-        // Get the new number of pixels to draw
-        drawThisManyPixels = Int(String(character))!
         
-        // Draw the pixels
-        for _ in 1...drawThisManyPixels {
+        
 
             // Draw the enlarged "pixel"
             canvas.drawRectangle(bottomLeftX: x, bottomLeftY: y, width: cellSize, height: cellSize)
@@ -101,11 +130,7 @@ for character in encodedBitmap {
             // Increase x so that the next pixel is drawn to the right of this one
             x += cellSize
 
-        }
-
-    }
-    
-}
+        
 
 /*:
  ### Check the results
@@ -139,3 +164,6 @@ for character in encodedBitmap {
  The code below is necessary to see results in the Assistant Editor at right. Please do not remove.
  */
 PlaygroundPage.current.liveView = canvas.imageView
+}
+
+}
